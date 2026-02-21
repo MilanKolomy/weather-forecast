@@ -11,15 +11,48 @@ body {
      padding: 2rem;
 }
 
+header {
+     text-align: center;
+     margin-bottom: 2rem;
+
+     h1 {
+          color: theme.$color-primary;
+          font-size: 2.5rem;
+     }
+}
+
+main{
+     .placeholder, h2{
+          text-align: center;
+     }
+}
+
+#app {
+     width: 100%;
+     max-width: 800px;
+     background: theme.$color-white;
+     padding: 2rem;
+     border-radius: theme.$radius;
+     box-shadow: theme.$shadow;
+}
+
 .search-container {
      display: flex;
      flex-direction: column;
+     gap: 0.5rem;
      max-width: 400px;
      margin: 0 auto;
 
      input {
           padding: 0.8rem;
           border: 2px solid color.adjust(theme.$color-primary, $lightness: 30%);
+          border-radius: theme.$radius;
           font-size: 1rem;
+          transition: border-color 0.3s;
+
+          &:focus {
+               outline: none;
+               border-color: theme.$color-primary;
+          }
      }
 }

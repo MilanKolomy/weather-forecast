@@ -1,19 +1,33 @@
 import './styles/main.scss';
 
-
-import citiesRaw from '../src/data/cz-city.list.json';
+import citiesRaw from './data/cz-city.list.json';
 import type { City } from './types';
-import { setupSearch } from './components/Search';
+import { setupSearch, findCityByName } from './components/Search';
 
 const citiesData = citiesRaw as City[];
 
-const init = () => {
-     const cityInput = document.querySelector<HTMLInputElement>('#city-search');
-     const datalist = document.querySelector<HTMLDataListElement>('#cities-datalist');
+// DOM
+const cityInput = document.querySelector<HTMLInputElement>('#city-search');
+const datalist = document.querySelector<HTMLDataListElement>('#cities-datalist');
+const cityTitle = document.querySelector<HTMLElement>('#city');
 
-     if (!cityInput || !datalist) return;
-
-     setupSearch(cityInput, datalist, citiesData);
+// helpers
+const setText = (el: HTMLElement | null, value: string) => {
+  if (el) el.textContent = value;
 };
 
-document.addEventListener('DOMContentLoaded', init);
+// handler
+const handleCityChange = (event: Event) => {
+  const input = event.target as HTMLInputElement;
+  const selectedCity = findCityByName(input.value, citiesData);
+  if (selectedCity) setText(cityTitle, selectedCity.name);
+};
+
+const init = () => {
+  if (!cityInput || !datalist) return;
+
+  setupSearch(cityInput, datalist, citiesData);
+  cityInput.addEventListener('input', handleCityChange);
+};
+
+init();

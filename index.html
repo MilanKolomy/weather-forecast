@@ -11,9 +11,21 @@
      <div id="app">
           <header>
                <h1>Předpověď počasí</h1>
+               <div class="search-container">
+                    <!-- Vstupní pole -->
+                    <input type="text" id="city-search" list="cities-datalist" placeholder="Hledat počasí v obci..." autocomplete="off">
+                    <datalist id="cities-datalist">
+                         <!-- Render komponenty Search.ts -->
+                    </datalist>
+               </div>
           </header>
 
           <main>
+               <h2 id="city">Vyhledané město</h2>
+               <div id="forecast-container">
+                    <!-- Render komponenty Forecast.ts -->
+                    <p class="placeholder">Zadejte město pro zobrazení předpovědi na 5 dní.</p>
+               </div>
           </main>
 
           <footer>

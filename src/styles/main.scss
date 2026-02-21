@@ -1,0 +1,25 @@
+@use 'sass:color';
+@use 'theme';
+
+body {
+     font-family: theme.$font-main;
+     background-color: theme.$color-light;
+     color: theme.$color-dark;
+     margin: 0;
+     display: flex;
+     justify-content: center;
+     padding: 2rem;
+}
+
+.search-container {
+     display: flex;
+     flex-direction: column;
+     max-width: 400px;
+     margin: 0 auto;
+
+     input {
+          padding: 0.8rem;
+          border: 2px solid color.adjust(theme.$color-primary, $lightness: 30%);
+          font-size: 1rem;
+     }
+}

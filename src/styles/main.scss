@@ -1,4 +1,3 @@
-@use 'sass:color';
 @use 'theme';
 
 body {
@@ -11,48 +10,144 @@ body {
      padding: 2rem;
 }
 
-header {
-     text-align: center;
-     margin-bottom: 2rem;
-
-     h1 {
-          color: theme.$color-primary;
-          font-size: 2.5rem;
-     }
-}
-
-main{
-     .placeholder, h2{
-          text-align: center;
-     }
-}
-
-#app {
+.app {
      width: 100%;
      max-width: 800px;
      background: theme.$color-white;
      padding: 2rem;
      border-radius: theme.$radius;
      box-shadow: theme.$shadow;
+
+     header {
+          text-align: center;
+          margin-bottom: 2rem;
+
+          h1 {
+               color: theme.$color-primary;
+               font-size: 2.5rem;
+          }
+     }
+
+     main {
+
+          .placeholder,
+          h2 {
+               text-align: center;
+          }
+     }
+
+     footer {
+          text-align: right;
+          margin-top: 1rem;
+
+          small {
+               opacity: 0.60;
+
+               a {
+                    color: theme.$color-dark;
+
+                    &:hover,
+                    &:focus-visible {
+                         text-decoration: underline;
+                    }
+               }
+          }
+     }
+
+     .forecast-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 2rem;
+          animation: fadeIn 0.5s ease-in;
+
+          th {
+               background-color: theme.$color-primary;
+               color: theme.$color-light;
+               text-align: left;
+               padding: 1rem 0.5rem;
+          }
+
+          td {
+               padding: 0.5rem;
+               border-bottom: 1px solid #eee;
+          }
+
+          tr:hover {
+               background-color: theme.$row-hover-bg;
+          }
+
+          .date::first-letter {
+               text-transform: uppercase;
+          }
+
+          .temp {
+               font-weight: bold;
+          }
+
+          .forecast-desc {
+               display: flex;
+               align-items: center;
+               gap: 0.5rem;
+               text-transform: capitalize;
+
+               img {
+                    width: 60px;
+                    height: auto;
+               }
+          }
+     }
+
+     .search-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          max-width: 400px;
+          margin: 0 auto;
+
+          input {
+               padding: 0.8rem;
+               border: 2px solid theme.$input-border;
+               border-radius: theme.$radius;
+               font-size: 1rem;
+               transition: border-color 0.3s, box-shadow 0.3s;
+
+               &:hover {
+                    border-color: theme.$input-border-hover;
+               }
+
+               &:focus-visible {
+                    outline: none;
+                    border-color: theme.$input-border-focus;
+                    box-shadow: theme.$shadow-input;
+               }
+          }
+     }
+
+     .loader,
+     .error-message,
+     .placeholder {
+          text-align: center;
+          margin-top: 3rem;
+          font-style: italic;
+     }
+
+     .error-message {
+          color: theme.$color-danger;
+          border: 1px solid theme.$color-danger;
+          border-radius: theme.$radius;
+          font-weight: bold;
+          padding: 0.5rem 1rem;
+     }
 }
 
-.search-container {
-     display: flex;
-     flex-direction: column;
-     gap: 0.5rem;
-     max-width: 400px;
-     margin: 0 auto;
+@keyframes fadeIn {
+     from {
+          opacity: 0;
+          transform: translateY(10px);
+     }
 
-     input {
-          padding: 0.8rem;
-          border: 2px solid color.adjust(theme.$color-primary, $lightness: 30%);
-          border-radius: theme.$radius;
-          font-size: 1rem;
-          transition: border-color 0.3s;
-
-          &:focus {
-               outline: none;
-               border-color: theme.$color-primary;
-          }
+     to {
+          opacity: 1;
+          transform: translateY(0);
      }
 }

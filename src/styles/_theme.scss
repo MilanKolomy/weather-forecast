@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // Fonty
 $font-main: 'Segoe UI', Tahoma, Verdana, sans-serif;
 
@@ -6,8 +8,19 @@ $color-primary: #3498db;
 $color-dark: #2c3e50;
 $color-light: #f4f7f6;
 $color-danger: #e74c3c;
-$color-white:#fff;
+$color-white: #fff;
 
-// Stíny a zaoblení
-$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// Radius
 $radius: 8px;
+
+// Stíny
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-input: 0 0 0 3px color.change($color-primary, $alpha: 0.2);
+
+// Inputy
+$input-border: color.adjust($color-primary, $lightness: 30%);
+$input-border-hover: color.adjust($color-primary, $lightness: 15%);
+$input-border-focus: $color-primary;
+
+// Tabulky
+$row-hover-bg: color.change($color-primary, $alpha: 0.05);

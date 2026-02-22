@@ -3,11 +3,13 @@ import './styles/main.scss';
 import citiesRaw from './data/cz-city.list.json';
 import type { City } from './types';
 import { setupSearch, findCityByName } from './components/Search';
+import { renderForecastTable, renderError } from './components/Forecast';
 import { fetchForecast } from './services/api';
 import { getState, setState } from './state';
 import type { AppState } from './state';
 
 const citiesData = citiesRaw as City[];
+const locale = navigator.language;
 
 // DOM
 const cityInput = document.querySelector<HTMLInputElement>('#city-search');
@@ -34,10 +36,10 @@ const viewHtml = (state: AppState): string => {
           return '<div class="loader">Načítám data z OpenWeather...</div>';
      }
      if (state.error) {
-          return `<p class="error">${state.error}</p>`;
+          return renderError(state.error);
      }
      if (state.forecast.length > 0) {
-          return `<p>Načteno ${state.forecast.length} dní.</p>`;
+          return renderForecastTable(state.forecast, locale);
      }
      return '<p class="placeholder">Zadejte město pro zobrazení předpovědi na 5 dní.</p>';
 };
@@ -72,23 +74,24 @@ const loadForecastForCity = async (city: City) => {
 
 // handler
 const handleCityChange = async (event: Event) => {
-  const input = event.target as HTMLInputElement;
-  const selectedCity = findCityByName(input.value, citiesData);
-  if (!selectedCity) return;
+     const input = event.target as HTMLInputElement;
+     const selectedCity = findCityByName(input.value.trim(), citiesData);
+     if (!selectedCity) return;
 
-  setText(cityTitle, selectedCity.name);
-  await loadForecastForCity(selectedCity);
+     setText(cityTitle, selectedCity.name);
+     await loadForecastForCity(selectedCity);
 };
 
+// init
 const init = () => {
-  if (!cityInput || !datalist) return;
+     if (!cityInput || !datalist) return;
 
-  setupSearch(cityInput, datalist, citiesData);
-  cityInput.addEventListener('input', handleCityChange);
+     setupSearch(cityInput, datalist, citiesData);
+     cityInput.addEventListener('input', handleCityChange);
 
-  document.addEventListener('stateUpdate', render);
+     document.addEventListener('stateUpdate', () => render());
 
-  render(); 
+     render();
 };
 
 init();

@@ -50,7 +50,7 @@ const haversineKm = (lat1: number, lon1: number, lat2: number, lon2: number) => 
      return 2 * R * Math.asin(Math.sqrt(a));
 };
 
-// Najde nejbližší město z lokální databáze
+// najde nejbližší město z lokální databáze
 const findNearestCity = (lat: number, lon: number, cities: City[]): City | null => {
      if (!cities.length) return null;
 
@@ -151,6 +151,11 @@ const handleCityChange = async (event: Event) => {
      if (!selectedCity) return;
 
      setText(cityTitle, selectedCity.name);
+
+     if (datalist) {
+          datalist.innerHTML = '';
+     }
+
      await loadForecastForCity(selectedCity);
 };
 

@@ -19,7 +19,7 @@ const initialState: AppState = {
 // Aktuální instance stavu
 let currentState = initialState;
 
-// Funkce pro získání aktuálního stavu
+// Získání aktuálního stavu
 export const getState = (): AppState => currentState;
 
 // Aktualizace stavu vytvořením nového objektu

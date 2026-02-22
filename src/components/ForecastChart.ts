@@ -12,7 +12,7 @@ export const destroyTempChart = () => {
      }
 };
 
-// Zobrazí graf
+// Zobrazí grafu
 export const renderTempChart = (
      canvas: HTMLCanvasElement,
      data: WeatherInterval[],

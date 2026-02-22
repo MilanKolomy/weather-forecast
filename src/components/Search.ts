@@ -1,17 +1,15 @@
 import type { City } from '../types';
 
-/**
- * Inicializace datalistu (našeptávače).
- */
+
+// Inicializace datalistu (našeptávače).
 export const renderCityOptions = (cities: City[]): string => {
      return cities
           .map(city => `<option value="${city.name}">${city.name} (${city.country})</option>`)
           .join('');
 };
 
-/**
- * Nastavení elementů vyhledávání.
- */
+
+//Nastavení elementů vyhledávání.
 export const setupSearch = (
      inputElement: HTMLInputElement,
      datalistElement: HTMLDataListElement,
@@ -26,9 +24,8 @@ export const setupSearch = (
      });
 };
 
-/**
- * Funkce pro validaci, zda zadaný text odpovídá městu v seznamu.
- */
+
+//Funkce pro validaci, zda zadaný text odpovídá městu v seznamu.
 export const findCityByName = (name: string, cities: City[]): City | undefined => {
      return cities.find(city => city.name.toLowerCase() === name.toLowerCase());
 };

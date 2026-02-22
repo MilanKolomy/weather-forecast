@@ -23,6 +23,9 @@ export const renderForecastTable = (
      if (data.length === 0) return '';
 
      return `
+     <div class="chart-wrapper">
+        <canvas id="temp-chart"></canvas>
+    </div>
     <div class="table-wrapper">
       <table class="forecast-table">
         <thead>

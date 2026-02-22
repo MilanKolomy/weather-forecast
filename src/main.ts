@@ -4,6 +4,7 @@ import citiesRaw from './data/cz-city.list.json';
 import type { City } from './types';
 import { setupSearch, findCityByName } from './components/Search';
 import { renderForecastTable, renderError } from './components/Forecast';
+import { renderTempChart, destroyTempChart } from './components/ForecastChart';
 import { fetchForecast } from './services/api';
 import { getState, setState } from './state';
 import type { AppState } from './state';
@@ -62,12 +63,15 @@ const findNearestCity = (lat: number, lon: number, cities: City[]): City | null 
 
 // Vytvoří HTML podle aktuálního stavu
 const viewHtml = (state: AppState): string => {
+     // Loader
      if (state.isLoading) {
           return '<div class="loader">Načítám data z OpenWeather...</div>';
      }
+     // Error
      if (state.error) {
           return renderError(state.error);
      }
+     // Tabulka počasí
      if (state.forecast.length > 0) {
           return renderForecastTable(state.forecast, locale);
      }
@@ -77,10 +81,21 @@ const viewHtml = (state: AppState): string => {
 // Překreslí aplikaci podle aktuálního state
 const render = () => {
      if (!forecastContainer) return;
-     setHtml(forecastContainer, viewHtml(getState()));
+
+     const state = getState();
+     setHtml(forecastContainer, viewHtml(state));
+
+     // Po změně DOM: pokud máme forecast a canvas existuje, vykresli graf
+     const canvas = document.querySelector<HTMLCanvasElement>('#temp-chart');
+     if (canvas && state.forecast.length > 0) {
+          renderTempChart(canvas, state.forecast, locale);
+     } else {
+          // když graf není na stránce
+          destroyTempChart();
+     }
 };
 
-// Načte předpověď pro vybrané město a uloží ji do state
+// Načte předpověd pro vybrané město a uloží ji do state
 const loadForecastForCity = async (city: City) => {
 
      // Zabrání opakovanému načítání stejného města

@@ -1,8 +1,6 @@
 import type { WeatherInterval } from './types';
 
-/**
- * Definice struktury stavu aplikace.
- */
+// Definice struktury stavu aplikace.
 export interface AppState {
      readonly selectedCityId: number | null;
      readonly forecast: WeatherInterval[];
@@ -24,7 +22,7 @@ let currentState = initialState;
 // Funkce pro získání aktuálního stavu
 export const getState = (): AppState => currentState;
 
-// Aktualizaci stavu formou nového stavu
+// Aktualizace stavu vytvořením nového objektu
 export const setState = (newState: Partial<AppState>): void => {
      currentState = { ...currentState, ...newState };
 

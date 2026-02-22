@@ -3,6 +3,7 @@ import type { WeatherResponse } from '../types';
 const API_KEY = import.meta.env.VITE_OPENWEATHER_KEY as string;
 const BASE_URL = 'https://api.openweathermap.org';
 
+//Asynchronní načtení předpovědi počasí z OpenWeather
 export const fetchForecast = async (cityId: number): Promise<WeatherResponse> => {
   if (!API_KEY) throw new Error('Chybí VITE_OPENWEATHER_KEY v .env');
 
